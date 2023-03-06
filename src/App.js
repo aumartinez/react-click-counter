@@ -1,25 +1,55 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import freeCodeCampLogo from './img/freecodecamp-logo.png'
+import Button from './components/Button';
+import Counter from './components/Counter';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      clickCount: 0
+    };
+    this.clickHandler = this.clickHandler.bind(this);
+    this.resetCounter = this.resetCounter.bind(this);
+  }
+
+  clickHandler() {
+    this.setState(({ clickCount }) => ({ clickCount: clickCount + 1 }));
+  }
+
+  resetCounter() {
+    this.setState({ clickCount: 0 });
+  }
+
+  render() {
+    return (
+      <div className='App d-flex'>
+        <div className='freecodecamp-logo-container d-flex'>
+          <img 
+          className='freecodecamp-logo'
+          src={freeCodeCampLogo}
+          alt="FreeCodeCamp Logo"
+          />
+        </div>
+        <div className='main-container d-flex'>
+          <Counter 
+          clickCount={this.state.clickCount}
+          />
+          <Button 
+          text='Click'
+          isClickBtn={true}
+          clickHandler={this.clickHandler}
+          />
+          <Button 
+          text='Reset'
+          isClickBtn={false}
+          clickHandler={this.resetCounter}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
